@@ -1,2 +1,4 @@
 # segmentation
-训练语义分割模型
+```bash
+python main.py -a fcn -d voc --batch_size 2 # Train FCN on VOC
+```
