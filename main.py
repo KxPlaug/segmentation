@@ -57,8 +57,8 @@ if weights:
                 40, NUM_CLASSES, kernel_size=(1, 1), stride=(1, 1))
             model.classifier.high_classifier[0] = nn.Conv2d(
                 128, NUM_CLASSES, kernel_size=(1, 1), stride=(1, 1))
-    else:
-        model = model(num_classes=NUM_CLASSES)
+else:
+    model = model(in_channels=3,num_classes=NUM_CLASSES)
 model.to(device)
 
 criterion = nn.CrossEntropyLoss()
