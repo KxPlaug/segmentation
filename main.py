@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from dataset import load_fss, load_voc
+import os
 from utils import calculate_accuracy
 from tqdm import tqdm
 
@@ -89,7 +90,7 @@ for epoch in range(args.epochs):
     lr_scheduler.step(iou)
     if iou > best_iou:
         print('Saving checkpoint...')
-        torch.save(model.state_dict(), 'weights/best_%s.pth' % args.arch)
+        torch.save(model.state_dict(), 'weights/best_%s_%s.pth' % (args.dataset, args.arch))
         best_iou = iou
         counter = 0
     else:
@@ -97,4 +98,5 @@ for epoch in range(args.epochs):
         if counter >= patience:
             print('Early stopping')
             break
+os.rename('weights/best_%s_%s.pth' % (args.dataset, args.arch), 'weights/best_%s_%s_%s.pth' % (args.dataset, args.arch, best_iou))
 print('Training finished.')
